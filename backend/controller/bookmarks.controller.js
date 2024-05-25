@@ -26,9 +26,11 @@ exports.create = (req, res) => {
   newBookmark.save()
     .then(result => {
       console.log(result)
+      res.status(201).json({ message: "Bookmark created successfully", bookmark: result })
     })
     .catch(error => {
       console.log(error)
+      res.status(500).json({ message: "An error occurred." })
     })
 }
 

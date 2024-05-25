@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import '../css/pages/bookmarksForm.scss'
 
-function BookmarksForm() {
+function BookmarksForm({handleModal, handleCreateBookmark,}) {
 
-  const navigate = useNavigate()
   const params = useParams()
   const id = params.id
 
@@ -32,18 +32,19 @@ function BookmarksForm() {
     axios.post(`http://localhost:5000/lists/${id}/bookmarks/new`, bookmarkData)
     .then(res => {
       console.log('Bookmark created:', res.data)
+      handleModal()
+      handleCreateBookmark(res.data.bookmark._id)
     })
     .catch(err => {
       console.log(err);
     })
-    navigate(`/lists/${id}`)
   }
 
 
   return (
     <div>
       <h2>make your choice</h2>
-      <form id='addMovie' onSubmit={handleSubmit}>
+      <form className='form-container' id='addMovie' onSubmit={handleSubmit}>
         <select value={selectedMovie} onChange={(e) => setSelectedMovie(e.target.value)}>
           <option value="">--choose a movie </option>
           {movies.map(movie => (

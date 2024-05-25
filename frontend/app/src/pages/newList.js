@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import '../css/pages/newList.scss'
 
-function NewList() {
-  const navigate = useNavigate()
+function NewList({handleModal, handleUpdateList}) {
+
   const [listName, setListName] = useState('')
   const [file, setFile] = useState(null)
 
@@ -20,8 +20,8 @@ function NewList() {
       }
     })
     .then(res => {
-      console.log(res.data)
-      navigate('/lists')
+      handleModal()
+      handleUpdateList(res.data._id)
     })
     .catch(err => {
       console.error('Error creating list:', err)
@@ -29,10 +29,12 @@ function NewList() {
   }
 
   return (
-    <div>
+    <div className='form-container'>
+
       <form onSubmit={handleSubmit} encType='multipart/form-data'>
-        <div>
-          <label htmlFor="name">Name: </label>
+        <h3>New List</h3>
+        <div className='name'>
+          <label htmlFor="name">List Name: </label>
           <input
             type='text'
             placeholder='List name'

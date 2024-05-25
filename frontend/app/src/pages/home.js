@@ -1,9 +1,10 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect, useRef} from 'react'
 import '../css/pages/home.scss'
 import axios from 'axios'
 import Header from '../components/header'
 import ListCard from '../components/listCard'
 import CreateButton from '../components/createButton'
+import NewList from './newList'
 
 const headerImage = '/images/homepage.jpeg'
 
@@ -11,6 +12,9 @@ const headerImage = '/images/homepage.jpeg'
 function Home() {
 
   const [lists, setLists] = useState([])
+  const [updateList, setUpdateList] = useState([])
+  const [modal, setModal] = useState(false)
+  const modalRef = useRef(null)
 
   useEffect(() => {
     axios.get("http://localhost:5000/lists")
@@ -20,7 +24,12 @@ function Home() {
       .catch(error => {
         console.error("Error fetching lists:", error);
       })
-  }, [])
+  }, [updateList])
+
+  const handleUpdateList = (id) => {
+    setUpdateList(id)
+  }
+
 
   const handleDeleteList = (id) => {
     axios.delete(`http://localhost:5000/lists/${id}`)
@@ -33,28 +42,69 @@ function Home() {
     })
   }
 
-  return (
-    <div>
-      <Header title = "Save any kind of movies" image = {headerImage} />
-      <div className="container">
-        <div className="header-list">
-          <h1>MyLists</h1>
-          <CreateButton address="/lists/new" text="Create movie list" />
-        </div>
-        <div className="list-lists">
+  const handleModal = () => {
+    setModal(!modal)
+  }
+
+  const handleClickOutside = event => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      setModal(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const displayListMenu = () => {
+    return(
+      <div>
+        <Header title="Save any kind of movies" image={headerImage} />
+        <div className="container">
+          <div className="header-list">
+            <h1>MyLists</h1>
+            <CreateButton
+              text="Create movie list"
+              click={handleModal}
+            />
+          </div>
+          <div className="list-lists">
             {lists.map(list => (
               <ListCard
-                key = {list._id}
-                id = {list._id}
-                image = {list.image}
-                name = {list.name}
-                handleDelete = {handleDeleteList}
+                key={list._id}
+                id={list._id}
+                image={list.image}
+                name={list.name}
+                handleDelete={handleDeleteList}
               />
             ))}
+          </div>
         </div>
       </div>
+    )
+  }
+
+  return (
+    <div>
+      {modal && (
+        <div className="modal">
+          <div ref={modalRef} className="modal-content">
+            <NewList
+              handleModal={handleModal}
+              handleUpdateList={handleUpdateList}
+            />
+          </div>
+        </div>
+      )}
+
+      <div>
+        {displayListMenu()}
+      </div>
     </div>
-  )
+  );
 }
 
 export default Home
