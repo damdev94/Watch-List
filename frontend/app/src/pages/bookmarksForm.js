@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Select from 'react-select'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import '../css/pages/bookmarksForm.scss'
@@ -11,6 +12,15 @@ function BookmarksForm({handleModal, handleCreateBookmark,}) {
   const [movies, setMovies] = useState([])
   const [selectedMovie, setSelectedMovie] = useState('')
   const [comment, setComment] = useState('')
+
+  const options = movies.map(movie => ({
+    value: movie._id,
+    label: movie.title
+  }))
+
+  const handleChange = selectedOption => {
+    setSelectedMovie(selectedOption)
+  }
 
   useEffect(() => {
     axios.get(`http://localhost:5000/lists/${id}/bookmarks/new`)
@@ -26,7 +36,7 @@ function BookmarksForm({handleModal, handleCreateBookmark,}) {
     event.preventDefault()
     const bookmarkData = {
       comment: comment,
-      movieId: selectedMovie,
+      movieId: selectedMovie.value,
       listId: id
     }
     axios.post(`http://localhost:5000/lists/${id}/bookmarks/new`, bookmarkData)
@@ -42,16 +52,17 @@ function BookmarksForm({handleModal, handleCreateBookmark,}) {
 
 
   return (
-    <div>
+    <div className='bookmarksForm-container'>
       <h2>make your choice</h2>
-      <form className='form-container' id='addMovie' onSubmit={handleSubmit}>
-        <select value={selectedMovie} onChange={(e) => setSelectedMovie(e.target.value)}>
-          <option value="">--choose a movie </option>
-          {movies.map(movie => (
-            <option key={movie._id} value={movie._id}>{movie.title}</option>
-          ))}
-        </select>
-        <textarea id="review" name="review" rows="4" cols="50" value={comment} onChange={(e) => setComment(e.target.value)} />
+      <form className='form-container-bookmark' id='addMovie' onSubmit={handleSubmit}>
+      <Select
+        className='custom-select'
+        value={selectedMovie}
+        onChange={handleChange}
+        options={options}
+        placeholder="Choose a movie"
+      />
+        <input className='review-input' id="review" name="review" value={comment} placeholder='Enter a message' onChange={(e) => setComment(e.target.value)} />
         <button type='submit'>Submit</button>
       </form>
     </div>

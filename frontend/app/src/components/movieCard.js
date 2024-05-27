@@ -31,13 +31,13 @@ function MovieCard({movies, bookmarks, handleDeleteBookmark}) {
                 {bookmarks.map(bookmark => (
                   bookmark.movieId === movie._id && (
                     <div key={bookmark._id} className="card-bottom">
-                    <div className="comment-container">
-                      <FontAwesomeIcon className='quoteIcon' icon={faQuoteLeft} />
-                      <p>{bookmark.comment}</p>
-                    </div>
-                    <div className="delete-bookmark">
-                      <DeleteButton handleDelete={handleDeleteBookmark} id={bookmark._id} item= 'movie' />
-                    </div>
+                      <div className="comment-container">
+                        <FontAwesomeIcon className='quoteIcon' icon={faQuoteLeft} />
+                        <p>{bookmark.comment}</p>
+                      </div>
+                      <div className="delete-bookmark">
+                        <DeleteButton handleDelete={handleDeleteBookmark} id={bookmark._id} item= 'movie' />
+                      </div>
                     </div>
                   )
                 ))}

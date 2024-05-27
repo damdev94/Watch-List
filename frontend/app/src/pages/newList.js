@@ -29,7 +29,7 @@ function NewList({handleModal, handleUpdateList}) {
   }
 
   return (
-    <div className='form-container'>
+    <div className='form-container-list'>
 
       <form onSubmit={handleSubmit} encType='multipart/form-data'>
         <h3>New List</h3>
@@ -44,8 +44,8 @@ function NewList({handleModal, handleUpdateList}) {
           />
         </div>
 
-        <div>
-          <label htmlFor='image'>Image</label>
+        <div className='upload-image'>
+          <label htmlFor='image'>Choose image</label>
           <input type="file" id="image" name='image' onChange={(e) => setFile(e.target.files[0])} />
         </div>
 
