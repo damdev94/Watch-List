@@ -884,6 +884,11 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+
+  "engines": {
+    "node": "22.1.0",
+    "npm": "10.7.0"
+  },
   "author": "",
   "license": "ISC",
   "description": ""
