@@ -108,32 +108,37 @@ exports.create = [
   }
 ]
 
-exports.delete = (req, res) => {
-  var list = listModel.findById(req.params.id)
-  .select("image")
-  .exec()
-  .then(list => {
+exports.delete = async (req, res) => {
+  try {
+    const list = await listModel.findById(req.params.id)
+    if (!list) {
+      return res.status(404).json({ message: "List not found" })
+    }
 
+    // Supprimer l'image associée à la liste du dossier public/images
     const imagePath = path.join(__dirname, '../public/images', list.image)
-
-    fs.unlink(imagePath, error => {
+    fs.unlink(imagePath, async (error) => {
       if (error) {
-        console.error("Error deleting image:", error)
+        console.error("Error deleting image:", error);
+        return res.status(500).json({ message: "An error occurred while deleting the image." })
       }
 
-      listModel.deleteOne({ _id: req.params.id })
-        .exec()
-        .then(() => {
-          res.status(200).json({ message: "List deleted successfully!" })
-        })
-        .catch(error => {
-          console.error("Error deleting list:", error)
-          res.status(500).json({ message: "An error occurred while deleting the list." })
-        })
-    })
-  })
-  .catch(error => {
-    console.error(error)
-    res.status(500).json({ message: "An error occurred." })
-  })
-}
+      try {
+        // Supprimer les bookmarks associés à cette liste
+        await bookmarkModel.deleteMany({ listId: list._id })
+
+        // Supprimer la liste elle-même
+        await listModel.findByIdAndDelete(req.params.id)
+
+        // Suppression réussie
+        res.status(200).json({ message: "List and associated bookmarks deleted successfully!" })
+      } catch (error) {
+        console.error("Error deleting bookmarks or list:", error)
+        res.status(500).json({ message: "An error occurred while deleting the list and bookmarks." })
+      }
+    });
+  } catch (error) {
+    console.error("Error deleting list:", error)
+    res.status(500).json({ message: "An error occurred while deleting the list." })
+  }
+};
