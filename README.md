@@ -40,4 +40,4 @@ For any questions or suggestions, please open an issue on GitHub or contact us v
 
 Thank you for using our Movie List Creation Application!
 
-![Texte alternatif](Capture d’écran du 2024-05-30 01-40-57.png)
+![Texte alternatif](./Capture d’écran du 2024-05-30 01-40-57.png)
