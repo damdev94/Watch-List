@@ -4,6 +4,8 @@ This application has allowed me to work with a MERN stack (MongoDB, Express.js, 
 Objective
 The objective of this project is to create a user-friendly application for managing personalized movie lists. Users can create lists with custom names, upload images for their lists, add movies from a pre-registered database, leave comments on movies, and efficiently manage their lists by adding or deleting movies as needed.
 
+![Design preview for the Body Mass Index Calculator coding challenge](./preview.png)
+
 Features
 List Creation
 Create a List: As a user, you can create a movie list with any name you choose.
@@ -39,5 +41,3 @@ Contact
 For any questions or suggestions, please open an issue on GitHub or contact us via email at damiendp94@gmail.com.
 
 Thank you for using our Movie List Creation Application!
-
-![Design preview for the Body Mass Index Calculator coding challenge](./preview.png)
