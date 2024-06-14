@@ -1,4 +1,4 @@
-Watch-List Creation Application
+## Watch-List Creation Application
 This application has allowed me to work with a MERN stack (MongoDB, Express.js, React, Node.js) and implement a structured MVC architecture.
 
 Objective
@@ -6,25 +6,25 @@ The objective of this project is to create a user-friendly application for manag
 
 ![Design preview for the Body Mass Index Calculator coding challenge](./preview.png)
 
-Features
+# Features
 
 List Creation :
 -Create a List: As a user, you can create a movie list with any name you choose.
 -Upload an Image: You can add an image to your list by uploading it from your computer.
 
-Movie Management :
+# Movie Management :
 
 -Add Movies: You can add movies to your lists from the pre-registered movie database.
 -Comment on Movies: For each movie added, you can leave a personal comment.
 
-Deletion:
+# Deletion:
 
 -Delete a List: You can delete an entire movie list if you no longer need it.
 -Delete a Movie: You have the option to delete a specific movie from a list.
 
-Usage:
+# Usage:
 
--Create a List:
+# Create a List:
 
 Go to the "Create a List" tab.
 
@@ -32,7 +32,7 @@ Enter the name of your list and upload an image from your computer.
 
 Click "Create".
 
-Add Movies:
+# Add Movies:
 
 Go to the list you have created.
 
@@ -44,7 +44,7 @@ Add a comment if you wish.
 
 Click "Add".
 
-Delete a List:
+# Delete a List:
 
 Go to the list you want to delete.
 
