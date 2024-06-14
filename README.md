@@ -6,7 +6,7 @@ The objective of this project is to create a user-friendly application for manag
 
 ![Design preview for the Body Mass Index Calculator coding challenge](./preview.png)
 
-Features
+##Features
 List Creation
 Create a List: As a user, you can create a movie list with any name you choose.
 Upload an Image: You can add an image to your list by uploading it from your computer.
